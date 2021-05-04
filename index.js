@@ -7,7 +7,7 @@ const clonedeep = require('lodash/cloneDeep');
 const path = require('path');
 const applySourceMap = require('vinyl-sourcemaps-apply');
 
-const PLUGIN_NAME = 'gulp-sass';
+const PLUGIN_NAME = 'sass';
 
 //////////////////////////////
 // Main Gulp Sass function
@@ -163,6 +163,13 @@ gulpSass.logError = function logError(error) {
 //////////////////////////////
 // Store compiler in a prop
 //////////////////////////////
-gulpSass.compiler = require('node-sass');
+try {
+  gulpSass.compiler = require('sass');
+} catch (e) {
+  try {
+    gulpSass.compiler = require('node-sass');
+  } catch (e) {
+  }
+}
 
 module.exports = gulpSass;
